@@ -1,14 +1,8 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import { ButtonControl } from "./UploadButton";
 import * as React from "react";
-import { IAppState } from './interfaces/IAppState';
-import { nullRender } from "@fluentui/react";
-import { log } from "console";
-
 
 export class UploadButton implements ComponentFramework.ReactControl<IInputs, IOutputs> {
-    private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
-    private _container: HTMLDivElement;
     public notifyOutputChanged: () => void;
     public outputs: IOutputs;
 
@@ -38,10 +32,6 @@ export class UploadButton implements ComponentFramework.ReactControl<IInputs, IO
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        const ioConnector = {
-            ref: this
-        };
-        
         const updateOutputs = (fileData: IOutputs) => {
             this.outputs = fileData;
             this.notifyOutputChanged();
