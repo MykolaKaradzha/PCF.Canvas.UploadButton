@@ -1,10 +1,8 @@
 import * as React from "react";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
-import { IIconProps } from "@fluentui/react";
-import { DefaultButton } from "@fluentui/react/lib/Button";
+import { Button } from "@fluentui/react-components";
 import { IOutputs } from "./generated/ManifestTypes";
-import { IAppState } from "./interfaces/IAppState";
-import { ArrowAutofitWidthDotted24Regular } from "@fluentui/react-icons";
+import { ArrowUploadFilled } from "@fluentui/react-icons";
 
 type ButtonControlProps = {
   updateOutputs: (fileData: IOutputs) => void;
@@ -16,7 +14,7 @@ export function ButtonControl({ updateOutputs }: ButtonControlProps) {
     toBase64(file)
       .then((base64Data) => {
         if (typeof base64Data === "string") {
-          const base64: string = base64Data.replace(/^data:.+;base64,/, '');
+          const base64: string = base64Data.replace(/^data:.+;base64,/, "");
           updateOutputs({
             fileName: file.name,
             base64: base64,
@@ -47,13 +45,16 @@ export function ButtonControl({ updateOutputs }: ButtonControlProps) {
     fileInput.onchange = onFileChange;
     fileInput.click(); // Open the dialog
   };
-  const addIcon: IIconProps = { iconName: "Upload" };
 
   return (
     <FluentProvider theme={webLightTheme}>
-      <DefaultButton iconProps={addIcon} onClick={openFileDialog}>
+      <Button
+        icon={<ArrowUploadFilled />}
+        onClick={openFileDialog}
+        appearance="subtle"
+      >
         Upload
-      </DefaultButton>
+      </Button>
     </FluentProvider>
   );
 }
