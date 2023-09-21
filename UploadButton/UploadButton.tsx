@@ -14,8 +14,9 @@ export function ButtonControl({ updateOutputs }: ButtonControlProps) {
   const onFileChange = async (event: any) => {
     const file = event.target.files[0];
     toBase64(file)
-      .then((base64) => {
-        if (typeof base64 === "string") {
+      .then((base64Data) => {
+        if (typeof base64Data === "string") {
+          const base64: string = base64Data.replace(/^data:.+;base64,/, '');
           updateOutputs({
             fileName: file.name,
             base64: base64,
